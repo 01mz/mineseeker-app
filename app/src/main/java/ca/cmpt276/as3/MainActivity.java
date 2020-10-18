@@ -86,9 +86,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        int timesPlayed = Prefs.getTimesPlayedPref(MainActivity.this);
+        int timesPlayed = Prefs.getTimesPlayedPref(this);
+        int bestScore = Prefs.getBestScorePref(rows, cols, mines, this);
 
-        options.init(rows, cols, mines, timesPlayed);
+        options.init(rows, cols, mines, timesPlayed, bestScore);
 
 
         /*

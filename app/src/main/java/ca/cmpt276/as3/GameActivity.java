@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView textViewMinesFound;
     private TextView textViewScansUsed;
     private TextView textViewTimesPlayed;
+    private TextView textViewBestScore;
 
     public static Intent makeGameIntent(Context c){
         Intent intent = new Intent(c, GameActivity.class);
@@ -45,6 +46,7 @@ public class GameActivity extends AppCompatActivity {
         textViewMinesFound = (TextView) findViewById(R.id.textViewMinesFound);
         textViewScansUsed = (TextView) findViewById(R.id.textViewScansUsed);
         textViewTimesPlayed = (TextView) findViewById(R.id.textViewTimesPlayed);
+        textViewBestScore = (TextView) findViewById(R.id.textViewBestScore);
 
         setupBoard();
 
@@ -60,6 +62,11 @@ public class GameActivity extends AppCompatActivity {
 
         textViewMinesFound.setText(getString(R.string.mines_found, 0, board.getNUM_MINES()));
         textViewTimesPlayed.setText(getString(R.string.times_played, options.getTimesPlayed()));
+        int bestScore = options.getBestScore();
+        int NO_BEST_SCORE = -1;
+        if(bestScore != NO_BEST_SCORE){
+            textViewBestScore.setText(getString(R.string.best_score, bestScore));
+        }
     }
 
     private void populateButtons() {

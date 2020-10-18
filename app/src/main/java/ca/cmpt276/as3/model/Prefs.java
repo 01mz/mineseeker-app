@@ -3,6 +3,8 @@ package ca.cmpt276.as3.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import ca.cmpt276.as3.MainActivity;
+
 /**
  * Manages SharedPreferences
  * Source: https://stackoverflow.com/questions/4051875/what-is-the-best-way-to-use-shared-preferences-between-activities
@@ -46,5 +48,10 @@ public class Prefs {
         getPrefs(context).edit().putInt(SHARED_PREFERENCES_TIMES_PLAYED_KEY, value).commit();
     }
 
+
+    public static int getBestScorePref(int rows, int cols, int mines, Context context) {
+        String key = "";
+        return getPrefs(context).getInt(key, TIMES_PLAYED_DEF_VALUE);
+    }
 
 }

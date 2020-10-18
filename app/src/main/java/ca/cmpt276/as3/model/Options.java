@@ -7,28 +7,31 @@ public class Options {
     private int cols;
     private int mines;
     private int timesPlayed;
+    private int bestScore;
 
     // TODO: reset #times played, best score
-    private Options(int rows, int cols, int mines, int timesPlayed){
+    private Options(int rows, int cols, int mines, int timesPlayed, int bestScore){
         this.rows = rows;
         this.cols = cols;
         this.mines = mines;
         this.timesPlayed = timesPlayed;
+        this.bestScore = bestScore;
     }
 
     public static Options getInstance(){
         if(instance == null){
             // default options
-            instance = new Options(4, 6, 6, 1);
+            instance = new Options(4, 6, 6, 1, -1);
         }
         return instance;
     }
 
-    public void init(int rows, int cols, int mines, int timesPlayed){
+    public void init(int rows, int cols, int mines, int timesPlayed, int bestScore){
         this.rows = rows;
         this.cols = cols;
         this.mines = mines;
         this.timesPlayed = timesPlayed;
+        this.bestScore = bestScore;
     }
 
     public int getRows() {
@@ -53,5 +56,9 @@ public class Options {
 
     public void resetTimesPlayed() {
         timesPlayed = 0;
+    }
+
+    public int getBestScore() {
+        return bestScore;
     }
 }
