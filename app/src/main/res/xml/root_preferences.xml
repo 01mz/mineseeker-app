@@ -1,5 +1,4 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="Game Settings">
 
@@ -24,16 +23,12 @@
     <PreferenceCategory app:title="Stats">
 
         <Preference
-            app:defaultValue="0"
             app:key="score"
             app:title="Reset high scores" />
 
         <Preference
-            app:defaultValue="0"
-
             app:key="times_played"
             app:title="Reset times played" />
-
         />
 
 

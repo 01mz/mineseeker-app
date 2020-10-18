@@ -15,6 +15,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import ca.cmpt276.as3.model.Options;
+import ca.cmpt276.as3.model.Prefs;
 
 public class OptionsActivity extends AppCompatActivity {
 
@@ -66,14 +67,10 @@ public class OptionsActivity extends AppCompatActivity {
             public boolean onPreferenceClick(Preference preference) {
                 Options options = Options.getInstance();
                 options.resetTimesPlayed();
-                Log.i("Stotre", ""+options.getTimesPlayed());
-
-                SharedPreferences sharedPreferences =
-                        PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this /* Activity context */);
-                String timesPlayed = sharedPreferences.getString("times_played", "6");
-                Log.i("times_played", timesPlayed);
+                Prefs.setTimesPlayedPref(OptionsActivity.this, options.getTimesPlayed());
                 return true;
             }
         });
     }
+
 }

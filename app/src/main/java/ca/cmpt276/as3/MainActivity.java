@@ -11,9 +11,10 @@ import android.util.Log;
 import android.widget.Button;
 
 import ca.cmpt276.as3.model.Options;
+import ca.cmpt276.as3.model.Prefs;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String SHARED_PREFERENCES_SAVED_TIMES_PLAYED_KEY = "ca.cmpt276.as3.MainActivity - Times Played";
+
     private static final int ACTIVITY_RESULT_PLAY_GAME = 101;
     private static final int ACTIVITY_RESULT_OPTIONS = 102;
 
@@ -62,20 +63,15 @@ public class MainActivity extends AppCompatActivity {
 
     // https://developer.android.com/guide/topics/ui/settings/use-saved-values
     private void updateOptions() {
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this /* Activity context */);
-
-        //SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
-
-        String boardSize = sharedPreferences.getString("board_size", "4 6");
+        String boardSize = Prefs.getBoardSizePref(this); // format: rows cols
 
         Log.i("boardSize", boardSize);
-        String numMines = sharedPreferences.getString("num_mines", "6");
+        String numMines = Prefs.getNumMinesPref(this);
         Log.i("numMines", numMines);
 
         String[] dimensions = boardSize.split(" ");
-        int rows = 4;
-        int cols = 6;
+        int rows = 4;   // default
+        int cols = 6;   // default
         try{
             rows = Integer.parseInt(dimensions[0]);
             cols = Integer.parseInt(dimensions[1]);
@@ -83,16 +79,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
-        int mines = 6;
+        int mines = 6;  // default
         try {
             mines = Integer.parseInt(numMines);
         } catch (NumberFormatException e){
 
         }
 
-        int timesPlayed = sharedPreferences.getInt(SHARED_PREFERENCES_SAVED_TIMES_PLAYED_KEY, 1);
-
+        int timesPlayed = Prefs.getTimesPlayedPref(MainActivity.this);
 
         options.init(rows, cols, mines, timesPlayed);
 
@@ -109,18 +103,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void storeStats() {
-        Log.i("Stotre", "" + options.getTimesPlayed());
-        SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
+//        Log.i("Stotre", "" + options.getTimesPlayed());
+//        SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
+//
+//        SharedPreferences sharedPreferences =
+//                PreferenceManager.getDefaultSharedPreferences(this );
 
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this );
 
-        int timesPlayed = options.getTimesPlayed();
 
-        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+//        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+//
+//        prefsEditor.putInt(SHARED_PREFERENCES_SAVED_TIMES_PLAYED_KEY, timesPlayed);
+//        prefsEditor.commit();
 
-        prefsEditor.putInt(SHARED_PREFERENCES_SAVED_TIMES_PLAYED_KEY, timesPlayed);
-        prefsEditor.commit();
+        Prefs.setTimesPlayedPref(this, options.getTimesPlayed());
     }
 
 
