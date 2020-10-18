@@ -1,5 +1,6 @@
 package ca.cmpt276.as3.model;
 
+
 public class Options {
     private static Options instance = null;
     private int rows;
@@ -8,49 +9,49 @@ public class Options {
     private int timesPlayed;
 
     // TODO: reset #times played, best score
-    private Options(int cols, int rows, int mines, int timesPlayed){
-        this.cols = cols;
+    private Options(int rows, int cols, int mines, int timesPlayed){
         this.rows = rows;
+        this.cols = cols;
         this.mines = mines;
         this.timesPlayed = timesPlayed;
     }
 
     public static Options getInstance(){
         if(instance == null){
-            int savedRows = 6;
-            int savedCols = 10;
-            int savedMines = 5;
-            int savedTimesPlayed = 1;
-            instance = new Options(savedCols, savedRows, savedMines, savedTimesPlayed);
+            // default options
+            instance = new Options(4, 6, 6, 1);
         }
         return instance;
+    }
+
+    public void init(int rows, int cols, int mines, int timesPlayed){
+        this.rows = rows;
+        this.cols = cols;
+        this.mines = mines;
+        this.timesPlayed = timesPlayed;
     }
 
     public int getRows() {
         return rows;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
     public int getCols() {
         return cols;
-    }
-
-    public void setCols(int cols) {
-        this.cols = cols;
     }
 
     public int getMines() {
         return mines;
     }
 
-    public void setMines(int mines) {
-        this.mines = mines;
-    }
-
     public int getTimesPlayed() {
         return timesPlayed;
+    }
+
+    public void updateTimesPlayed() {
+        timesPlayed++;
+    }
+
+    public void resetTimesPlayed() {
+        timesPlayed = 0;
     }
 }

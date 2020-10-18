@@ -1,0 +1,28 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="board_sizes">
+        <item>4 rows by 6 columns</item>
+        <item>5 rows by 10 columns</item>
+        <item>6 rows by 15 columns</item>
+    </string-array>
+
+    <string-array name="board_sizes_values">
+        <item>4 6</item>
+        <item>5 10</item>
+        <item>6 15</item>
+    </string-array>
+
+    <string-array name="num_mines">
+        <item>6 mines</item>
+        <item>10 mines</item>
+        <item>15 mines</item>
+        <item>20 mines</item>
+    </string-array>
+
+    <string-array name="num_mines_values">
+        <item>6</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+</resources>

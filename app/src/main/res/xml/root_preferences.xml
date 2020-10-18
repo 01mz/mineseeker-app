@@ -1,0 +1,43 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Game Settings">
+
+        <ListPreference
+            app:defaultValue="4 6"
+            app:entries="@array/board_sizes"
+            app:entryValues="@array/board_sizes_values"
+            app:key="board_size"
+            app:title="Board size"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="6"
+            app:entries="@array/num_mines"
+            app:entryValues="@array/num_mines_values"
+            app:key="num_mines"
+            app:title="Number of mines"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Stats">
+
+        <Preference
+            app:defaultValue="0"
+            app:key="score"
+            app:title="Reset high scores" />
+
+        <Preference
+            app:defaultValue="0"
+
+            app:key="times_played"
+            app:title="Reset times played" />
+
+        />
+
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

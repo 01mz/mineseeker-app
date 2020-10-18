@@ -8,19 +8,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MineSeeker"
-
-        >
+        android:theme="@style/Theme.MineSeeker">
+        <activity
+            android:name=".OptionsActivity"
+            android:label="@string/title_activity_options"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".GameActivity"
-            android:screenOrientation="landscape"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
-
-            ></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboard|orientation|keyboardHidden|screenSize">
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
