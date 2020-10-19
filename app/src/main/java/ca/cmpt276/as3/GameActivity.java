@@ -2,6 +2,7 @@ package ca.cmpt276.as3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,7 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import ca.cmpt276.as3.model.Board;
 import ca.cmpt276.as3.model.Options;
+import ca.cmpt276.as3.model.Prefs;
 
 /**
  * Populate the game board with dynamic buttons.
@@ -32,10 +34,10 @@ public class GameActivity extends AppCompatActivity {
     private TextView textViewMinesFound;
     private TextView textViewScansUsed;
     private TextView textViewTimesPlayed;
+    private TextView textViewBestScore;
 
     public static Intent makeGameIntent(Context c){
-        Intent intent = new Intent(c, GameActivity.class);
-        return intent;
+        return new Intent(c, GameActivity.class);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class GameActivity extends AppCompatActivity {
         textViewMinesFound = (TextView) findViewById(R.id.textViewMinesFound);
         textViewScansUsed = (TextView) findViewById(R.id.textViewScansUsed);
         textViewTimesPlayed = (TextView) findViewById(R.id.textViewTimesPlayed);
+        textViewBestScore = (TextView) findViewById(R.id.textViewBestScore);
 
         setupBoard();
 
@@ -60,6 +63,13 @@ public class GameActivity extends AppCompatActivity {
 
         textViewMinesFound.setText(getString(R.string.mines_found, 0, board.getNUM_MINES()));
         textViewTimesPlayed.setText(getString(R.string.times_played, options.getTimesPlayed()));
+
+        int bestScore = options.getBestScore();
+        int NO_BEST_SCORE = -1;
+        Log.i("score", ""+bestScore);
+        if(bestScore != NO_BEST_SCORE){
+            textViewBestScore.setText(getString(R.string.best_score, bestScore));
+        }
     }
 
     private void populateButtons() {
@@ -88,12 +98,7 @@ public class GameActivity extends AppCompatActivity {
                 // Make text not clip on small buttons
                 button.setPadding(0, 0, 0, 0);
 
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        gridButtonClicked(FINAL_ROW, FINAL_COL);
-                    }
-                });
+                button.setOnClickListener(v -> gridButtonClicked(FINAL_ROW, FINAL_COL));
 
                 tableRow.addView(button);
                 buttons[row][col] = button;
@@ -101,6 +106,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void gridButtonClicked(int row, int col) {
         // Lock Button Sizes:
         lockButtonSizes();
@@ -114,12 +120,19 @@ public class GameActivity extends AppCompatActivity {
             if(scan == MINE_DETECTED){
                 showMine(button);
                 updateUndetectedMineCounts(row, col);
+
                 if(board.getNumMinesFound() == board.getNUM_MINES()){
+                    // win
+                    if(Options.getInstance()
+                            .updateBestScore(board.getNumScansUsed())){ // if bestScore updated
+                        Log.i("scorewin", ""+board.getNumScansUsed());
+                        Prefs.setBestScorePref(this);
+                    }
                     Toast.makeText(this, "Congrats you win!", Toast.LENGTH_SHORT).show();
                 }
 
             } else {
-                button.setText("" + scan);
+                button.setText(Integer.toString(scan));
                 textViewScansUsed.setText(getString(R.string.scans_used, board.getNumScansUsed()));
             }
 
@@ -139,6 +152,7 @@ public class GameActivity extends AppCompatActivity {
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateUndetectedMineCounts(int row, int col) {
         textViewMinesFound.setText(getString(R.string.mines_found, board.getNumMinesFound(), board.getNUM_MINES()));
 
@@ -148,14 +162,14 @@ public class GameActivity extends AppCompatActivity {
             if (board.mineCountRevealed(row, c)){
                 Button button = buttons[row][c];
                 int updated = Integer.parseInt(button.getText().toString())-1;
-                button.setText("" + updated);
+                button.setText(Integer.toString(updated));
             }
         }
         for (int r = 0; r < NUM_ROWS; r++){
             if (board.mineCountRevealed(r, col)){
                 Button button = buttons[r][col];
                 int updated = Integer.parseInt(button.getText().toString())-1;
-                button.setText("" + updated);
+                button.setText(Integer.toString(updated));
             }
         }
 

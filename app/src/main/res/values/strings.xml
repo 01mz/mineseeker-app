@@ -3,4 +3,7 @@
     <string name="scans_used">Scans used: %d</string>
     <string name="mines_found">Found %d of %d mines.</string>
     <string name="times_played">Times played: %d</string>
+    <string name="title_activity_options">OptionsActivity</string>
+
+    <string name="best_score">Best Score: %d scans</string>
 </resources>
