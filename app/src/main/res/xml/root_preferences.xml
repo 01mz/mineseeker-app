@@ -24,7 +24,7 @@
 
         <Preference
             app:key="score"
-            app:title="Reset high scores" />
+            app:title="Reset best scores" />
 
         <Preference
             app:key="times_played"

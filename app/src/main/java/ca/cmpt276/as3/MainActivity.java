@@ -2,12 +2,11 @@ package ca.cmpt276.as3;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.util.Log;
+
 import android.widget.Button;
 
 import ca.cmpt276.as3.model.Options;
@@ -65,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateOptions() {
         String boardSize = Prefs.getBoardSizePref(this); // format: rows cols
 
-        Log.i("boardSize", boardSize);
         String numMines = Prefs.getNumMinesPref(this);
-        Log.i("numMines", numMines);
 
         String[] dimensions = boardSize.split(" ");
         int rows = 4;   // default
@@ -75,49 +72,26 @@ public class MainActivity extends AppCompatActivity {
         try{
             rows = Integer.parseInt(dimensions[0]);
             cols = Integer.parseInt(dimensions[1]);
-        } catch(NumberFormatException e){
+        } catch(NumberFormatException ignored){
 
         }
 
         int mines = 6;  // default
         try {
             mines = Integer.parseInt(numMines);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException ignored){
 
         }
 
         int timesPlayed = Prefs.getTimesPlayedPref(this);
-        int bestScore = Prefs.getBestScorePref(rows, cols, mines, this);
+        int bestScore = Prefs.getBestScorePref(this, rows, cols, mines);
 
         options.init(rows, cols, mines, timesPlayed, bestScore);
-
-
-        /*
-        Gson gson = new Gson();
-        Options savedOptions = gson.fromJson(json, Options.class);
-        if(savedOptions != null){
-            options = Options.getInstance();
-
-        }
-        */
-
     }
 
     private void storeStats() {
-//        Log.i("Stotre", "" + options.getTimesPlayed());
-//        SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
-//
-//        SharedPreferences sharedPreferences =
-//                PreferenceManager.getDefaultSharedPreferences(this );
 
-
-
-//        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-//
-//        prefsEditor.putInt(SHARED_PREFERENCES_SAVED_TIMES_PLAYED_KEY, timesPlayed);
-//        prefsEditor.commit();
-
-        Prefs.setTimesPlayedPref(this, options.getTimesPlayed());
+        Prefs.setTimesPlayedPref(this);
     }
 
 

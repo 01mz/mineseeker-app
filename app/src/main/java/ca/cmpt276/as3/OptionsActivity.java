@@ -2,17 +2,12 @@ package ca.cmpt276.as3;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
 
 import ca.cmpt276.as3.model.Options;
 import ca.cmpt276.as3.model.Prefs;
@@ -22,8 +17,7 @@ public class OptionsActivity extends AppCompatActivity {
     private SettingsFragment settingsFragment;
 
     public static Intent makeGameIntent(Context c) {
-        Intent intent = new Intent(c, OptionsActivity.class);
-        return intent;
+        return new Intent(c, OptionsActivity.class);
     }
 
     @Override
@@ -61,16 +55,22 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Preference preference = settingsFragment.findPreference("times_played");
-        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Options options = Options.getInstance();
-                options.resetTimesPlayed();
-                Prefs.setTimesPlayedPref(OptionsActivity.this, options.getTimesPlayed());
-                return true;
-            }
+        Preference prefBestScore = settingsFragment.findPreference("score");
+        Preference prefTimesPlayed = settingsFragment.findPreference("times_played");
+
+        prefBestScore.setOnPreferenceClickListener(preference -> {
+            Options options = Options.getInstance();
+            options.resetBestScore();
+            Prefs.resetScores(OptionsActivity.this);
+            return true;
         });
+        prefTimesPlayed.setOnPreferenceClickListener(preference -> {
+            Options options = Options.getInstance();
+            options.resetTimesPlayed();
+            Prefs.setTimesPlayedPref(OptionsActivity.this);
+            return true;
+        });
+
     }
 
 }

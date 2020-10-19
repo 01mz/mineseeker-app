@@ -3,36 +3,40 @@ package ca.cmpt276.as3.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import ca.cmpt276.as3.MainActivity;
+import androidx.preference.PreferenceManager;
+
+import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Manages SharedPreferences
  * Source: https://stackoverflow.com/questions/4051875/what-is-the-best-way-to-use-shared-preferences-between-activities
  */
 public class Prefs {
-    public static final String SHARED_PREFERENCES_NAME = "Options";
-
     private static final String SHARED_PREFERENCES_BOARD_SIZE_KEY = "board_size";
-    public static final String BOARD_SIZE_DEF_VALUE = "4 6";
+    private static final String BOARD_SIZE_DEF_VALUE = "4 6";
 
     private static final String SHARED_PREFERENCES_NUM_MINES_KEY = "num_mines";
-    public static final String NUM_MINES_DEF_VALUE = "6";
+    private static final String NUM_MINES_DEF_VALUE = "6";
 
     private static final String SHARED_PREFERENCES_TIMES_PLAYED_KEY = "Times Played";
-    public static final int TIMES_PLAYED_DEF_VALUE = 0;
+    private static final int TIMES_PLAYED_DEF_VALUE = 0;
+
+    private static final int BEST_SCORE_DEF_VALUE = -1;
+
+    private static final String SHARED_PREFERENCES_SAVED_SCORES_KEY = "Saved Scores";
+    private static Map<String, Integer> savedScores = new HashMap<>();
 
     private static SharedPreferences getPrefs(Context context) {
-        return context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public static String getBoardSizePref(Context context) {
         return getPrefs(context).getString(SHARED_PREFERENCES_BOARD_SIZE_KEY, BOARD_SIZE_DEF_VALUE);
 
-    }
-
-    public static void setBoardSizePref(Context context, String value) {
-        // perform validation etc..
-        getPrefs(context).edit().putString(SHARED_PREFERENCES_BOARD_SIZE_KEY, value).commit();
     }
 
     public static String getNumMinesPref(Context context) {
@@ -43,15 +47,53 @@ public class Prefs {
         return getPrefs(context).getInt(SHARED_PREFERENCES_TIMES_PLAYED_KEY, TIMES_PLAYED_DEF_VALUE);
     }
 
-    public static void setTimesPlayedPref(Context context, int value) {
+    public static void setTimesPlayedPref(Context context) {
         // perform validation etc..
-        getPrefs(context).edit().putInt(SHARED_PREFERENCES_TIMES_PLAYED_KEY, value).commit();
+        Options options = Options.getInstance();
+        getPrefs(context).edit().putInt(SHARED_PREFERENCES_TIMES_PLAYED_KEY, options.getTimesPlayed()).apply();
     }
 
 
-    public static int getBestScorePref(int rows, int cols, int mines, Context context) {
-        String key = "";
-        return getPrefs(context).getInt(key, TIMES_PLAYED_DEF_VALUE);
+    public static int getBestScorePref(Context context, int rows, int cols, int mines) {
+        String key = getKey(rows, cols, mines);
+
+        updateSavedScoresFromPref(context);
+
+        double bestScore = Double.parseDouble(""+savedScores.getOrDefault(key, BEST_SCORE_DEF_VALUE));
+        return (int)bestScore;
     }
+
+    public static void setBestScorePref(Context context) {
+        Options options = Options.getInstance();
+        String key = getKey(options.getRows(), options.getCols(), options.getMines());
+        int bestScore = options.getBestScore();
+
+        updateSavedScoresFromPref(context);
+
+        savedScores.put(key, bestScore);
+        Gson gson = new Gson();
+        String json = gson.toJson(savedScores);
+        getPrefs(context).edit().putString(SHARED_PREFERENCES_SAVED_SCORES_KEY, json).apply();
+    }
+
+    private static void updateSavedScoresFromPref(Context context) {
+        Gson gson = new Gson();
+        String json = getPrefs(context).getString(SHARED_PREFERENCES_SAVED_SCORES_KEY,
+                gson.toJson(new HashMap<>())); // default is empty HashMap
+
+        savedScores = gson.fromJson(json, Map.class);
+    }
+
+    private static String getKey(int rows, int cols, int mines) {
+        return String.format(Locale.getDefault(), "%d-%d-%d", rows, cols, mines);
+    }
+
+    public static void resetScores(Context context){
+        savedScores = new HashMap<>();
+        Gson gson = new Gson();
+        String json = gson.toJson(savedScores);
+        getPrefs(context).edit().putString(SHARED_PREFERENCES_SAVED_SCORES_KEY, json).apply();
+    }
+
 
 }

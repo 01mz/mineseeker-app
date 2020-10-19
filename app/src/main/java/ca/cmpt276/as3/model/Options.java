@@ -61,4 +61,16 @@ public class Options {
     public int getBestScore() {
         return bestScore;
     }
+
+    public boolean updateBestScore(int score){
+        if(bestScore == -1 || score < this.bestScore){
+            this.bestScore = score;
+            return true;
+        }
+        return false;
+    }
+
+    public void resetBestScore() {
+        bestScore = -1;
+    }
 }
