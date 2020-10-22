@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Manages SharedPreferences
+ * Prefs manages SharedPreferences for saved game settings and stats
  * Source: https://stackoverflow.com/questions/4051875/what-is-the-best-way-to-use-shared-preferences-between-activities
  */
 public class Prefs {

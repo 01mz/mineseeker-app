@@ -8,9 +8,28 @@
 
     <string name="best_score">Best Score: %d scans</string>
     <string name="credits">Created by Michael Zheng for
-        <a href="https://opencoursehub.cs.sfu.ca/jackt/grav-cms/cmpt276-2/home"> Dr. Jack Thomas\' CMPT 276 </a>
-        assignment 3.\nIcons taken from <a href="https://commons.wikimedia.org/wiki/Crystal_Clear"> here </a>.\nThanks to Dr. Brian Fraser for additional resources.
+        <a href="https://opencoursehub.cs.sfu.ca/jackt/grav-cms/cmpt276-2/home">Dr. Jack Thomas\' CMPT 276</a>
+        assignment 3.\nImages and icons taken from <a href="https://commons.wikimedia.org/wiki/Crystal_Clear">WikiMedia</a>
+        and <a href='https://www.freepik.com/'>www.freepik.com</a>.\nThanks to Dr. Brian Fraser for additional resources.
     </string>
     <string name="instructions">BombSeeker is a game where you try to reveal all bombs in the field with the least number of scans. To check for a bomb in an area, tap the area. If there is a bomb in the area, it is revealed. If there is not, a scan is executed and a count will be shown indicating the number of bombs in the row and column of the selected area. The goal is to reveal all bombs with least number of scans. Good luck!</string>
     <string name="instructions_title">Instructions</string>
+    <string name="credits_title">Credits</string>
+    <string name="play_game">Play game!</string>
+    <string name="options">Options</string>
+    <string name="help">Help</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="bomb_picture">Bomb Picture</string>
+    <string name="bomb_image">Bomb Image</string>
+    <string name="bomb_seeker">BombSeeker</string>
+    <string name="skip">Skip</string>
+    <string name="avatar">avatar</string>
+    <string name="michael_zheng">Michael Zheng</string>
+    <string name="star">star</string>
+    <string name="win_dialog_text">Tap OK to return to the Main Menu.</string>
+    <string name="found_mines_default">Found 0 of 8 mines.</string>
+    <string name="scans_used_default">Scans used: 0</string>
+    <string name="times_played_default">Times played: 0</string>
+    <string name="best_score_scans_default">Best score: ? scans</string>
+    <string name="author">Author</string>
 </resources>

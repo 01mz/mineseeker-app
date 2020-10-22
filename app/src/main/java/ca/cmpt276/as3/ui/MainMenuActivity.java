@@ -1,24 +1,35 @@
-package ca.cmpt276.as3;
+package ca.cmpt276.as3.ui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
 
 import android.widget.Button;
 
+import ca.cmpt276.as3.R;
 import ca.cmpt276.as3.model.Options;
 import ca.cmpt276.as3.model.Prefs;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * The MainMenuActivity has three buttons that allows the user to navigate to the GameActivity,
+ * OptionsActivity, and HelpActivity. It makes sure the Options are up to date when the game starts.
+ * The user returns to MainActivity after accessing GameActivity, OptionsActivity, or HelpActivity.
+ */
+public class MainMenuActivity extends AppCompatActivity {
 
     private static final int ACTIVITY_RESULT_PLAY_GAME = 101;
     private static final int ACTIVITY_RESULT_OPTIONS = 102;
     private static final int ACTIVITY_RESULT_HELP = 103;
 
     Options options = Options.getInstance();
+
+    public static Intent makeMainMenuIntent(Context c){
+        return new Intent(c, MainMenuActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             updateOptions();
             options.updateTimesPlayed();
 
-            Intent intent = GameActivity.makeGameIntent(MainActivity.this);
+            Intent intent = GameActivity.makeGameIntent(MainMenuActivity.this);
             startActivityForResult(intent, ACTIVITY_RESULT_PLAY_GAME);
         });
     }
@@ -45,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupOptionsButton() {
         Button buttonOptions = (Button) findViewById(R.id.buttonOptions);
         buttonOptions.setOnClickListener(v -> {
-            Intent intent = OptionsActivity.makeGameIntent(MainActivity.this);
+            Intent intent = OptionsActivity.makeGameIntent(MainMenuActivity.this);
             startActivityForResult(intent, ACTIVITY_RESULT_OPTIONS);
         });
     }
@@ -53,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupHelpButton() {
         Button buttonHelp = (Button) findViewById(R.id.buttonHelp);
         buttonHelp.setOnClickListener(v -> {
-            Intent intent = HelpActivity.makeGameIntent(MainActivity.this);
+            Intent intent = HelpActivity.makeGameIntent(MainMenuActivity.this);
             startActivityForResult(intent, ACTIVITY_RESULT_HELP);
         });
     }

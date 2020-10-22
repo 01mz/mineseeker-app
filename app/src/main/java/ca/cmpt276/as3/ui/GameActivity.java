@@ -1,6 +1,4 @@
-package ca.cmpt276.as3;
-
-import androidx.appcompat.app.AppCompatActivity;
+package ca.cmpt276.as3.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,14 +13,19 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
+import ca.cmpt276.as3.R;
 import ca.cmpt276.as3.model.Board;
 import ca.cmpt276.as3.model.Options;
 import ca.cmpt276.as3.model.Prefs;
 
 /**
- * Populate the game board with dynamic buttons.
+ * The GameActivity populates the game board with dynamic buttons and allows the user to play the
+ * game by interacting with the buttons. Updates mine counts when mines are revealed.
+ * Shows a dialog when the user wins.
  * With code from Brian Fraser
  */
 public class GameActivity extends AppCompatActivity {
@@ -127,7 +130,7 @@ public class GameActivity extends AppCompatActivity {
                             .updateBestScore(board.getNumScansUsed())){ // if bestScore updated
                         Prefs.setBestScorePref(this);
                     }
-                    Toast.makeText(this, "Congrats you win!", Toast.LENGTH_SHORT).show();
+                    showWinDialog();
                 }
 
             } else {
@@ -190,5 +193,13 @@ public class GameActivity extends AppCompatActivity {
                 button.setMaxHeight(height);
             }
         }
+    }
+
+    private void showWinDialog() {
+        FragmentManager manager = getSupportFragmentManager();
+        MessageFragment dialog = new MessageFragment();
+
+        dialog.show(manager, "MessageDialog");
+
     }
 }

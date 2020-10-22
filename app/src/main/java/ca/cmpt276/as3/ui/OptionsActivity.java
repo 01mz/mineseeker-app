@@ -1,4 +1,4 @@
-package ca.cmpt276.as3;
+package ca.cmpt276.as3.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import ca.cmpt276.as3.R;
 import ca.cmpt276.as3.model.Options;
 import ca.cmpt276.as3.model.Prefs;
 
+/**
+ * OptionsActivity allows the user the change game settings and to reset stats.
+ */
 public class OptionsActivity extends AppCompatActivity {
 
     private SettingsFragment settingsFragment;
@@ -58,12 +62,14 @@ public class OptionsActivity extends AppCompatActivity {
         Preference prefBestScore = settingsFragment.findPreference("score");
         Preference prefTimesPlayed = settingsFragment.findPreference("times_played");
 
+        assert prefBestScore != null;
         prefBestScore.setOnPreferenceClickListener(preference -> {
             Options options = Options.getInstance();
             options.resetBestScore();
             Prefs.resetScores(OptionsActivity.this);
             return true;
         });
+        assert prefTimesPlayed != null;
         prefTimesPlayed.setOnPreferenceClickListener(preference -> {
             Options options = Options.getInstance();
             options.resetTimesPlayed();

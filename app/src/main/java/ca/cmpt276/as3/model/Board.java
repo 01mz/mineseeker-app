@@ -7,6 +7,10 @@ import java.util.LinkedHashSet;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * The Board class contains the game logic. It creates and manages the game board. It performs scans
+ * and keeps track of scanned locations, mines, and the mines revealed.
+ */
 public class Board {
     private static final int MINE_DETECTED = -1;
     private final int NUM_ROWS;
@@ -14,11 +18,11 @@ public class Board {
     private final int NUM_MINES;
     private final Set<Pair<Integer, Integer>> numMinesRevealedLocations = new LinkedHashSet<>();
 
-    private final Mine board[][];
+    private final Mine[][] board;
     private int numMinesFound = 0;
 
     private enum Mine {
-        NO, UNDETECTED, DETECTED;
+        NO, UNDETECTED, DETECTED
 
     }
     public Board(int cols, int rows, int mines){

@@ -1,6 +1,8 @@
 package ca.cmpt276.as3.model;
 
-
+/**
+ * Options is the Singleton class where the game settings and stats are stored.
+ */
 public class Options {
     private static Options instance = null;
     private int rows;
@@ -9,7 +11,6 @@ public class Options {
     private int timesPlayed;
     private int bestScore;
 
-    // TODO: reset #times played, best score
     private Options(int rows, int cols, int mines, int timesPlayed, int bestScore){
         this.rows = rows;
         this.cols = cols;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainMenuActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/space"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,19 +21,19 @@
             android:id="@+id/buttonPlayGame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Play game!" />
+            android:text="@string/play_game" />
 
         <Button
             android:id="@+id/buttonOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Options" />
+            android:text="@string/options" />
 
         <Button
             android:id="@+id/buttonHelp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Help" />
+            android:text="@string/help" />
 
     </LinearLayout>
 
@@ -40,12 +41,34 @@
         android:id="@+id/textViewMainMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Main Menu"
+        android:text="@string/main_menu"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#9C27B0"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewBoomImage"
+        android:layout_width="198dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/bomb_picture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintStart_toEndOf="@+id/space"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMainMenu"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/bomb_menu" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
