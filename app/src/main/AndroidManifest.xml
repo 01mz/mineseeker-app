@@ -10,10 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MineSeeker">
         <activity
-            android:name=".OptionsActivity"
-            android:label="@string/title_activity_options"
+            android:name=".HelpActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".OptionsActivity"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_options"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".GameActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
