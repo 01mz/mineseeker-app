@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int ACTIVITY_RESULT_PLAY_GAME = 101;
     private static final int ACTIVITY_RESULT_OPTIONS = 102;
+    private static final int ACTIVITY_RESULT_HELP = 103;
 
     Options options = Options.getInstance();
 
@@ -26,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
         setupPlayGameButton();
         setupOptionsButton();
+        setupHelpButton();
     }
+
 
     private void setupPlayGameButton() {
         Button buttonPlayGame = (Button) findViewById(R.id.buttonPlayGame);
@@ -40,10 +43,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupOptionsButton() {
-        Button buttonPlayGame = (Button) findViewById(R.id.buttonOptions);
-        buttonPlayGame.setOnClickListener(v -> {
+        Button buttonOptions = (Button) findViewById(R.id.buttonOptions);
+        buttonOptions.setOnClickListener(v -> {
             Intent intent = OptionsActivity.makeGameIntent(MainActivity.this);
             startActivityForResult(intent, ACTIVITY_RESULT_OPTIONS);
+        });
+    }
+
+    private void setupHelpButton() {
+        Button buttonHelp = (Button) findViewById(R.id.buttonHelp);
+        buttonHelp.setOnClickListener(v -> {
+            Intent intent = HelpActivity.makeGameIntent(MainActivity.this);
+            startActivityForResult(intent, ACTIVITY_RESULT_HELP);
         });
     }
 

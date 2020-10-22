@@ -1,9 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MineSeeker</string>
+    <string name="app_name">BombSeeker</string>
     <string name="scans_used">Scans used: %d</string>
-    <string name="mines_found">Found %d of %d mines.</string>
+    <string name="mines_found">Found %d of %d bombs.</string>
     <string name="times_played">Times played: %d</string>
     <string name="title_activity_options">OptionsActivity</string>
 
     <string name="best_score">Best Score: %d scans</string>
+    <string name="credits">Created by Michael Zheng for
+        <a href="https://opencoursehub.cs.sfu.ca/jackt/grav-cms/cmpt276-2/home"> Dr. Jack Thomas\' CMPT 276 </a>
+        assignment 3.\nIcons taken from <a href="https://commons.wikimedia.org/wiki/Crystal_Clear"> here </a>.\nThanks to Dr. Brian Fraser for additional resources.
+    </string>
+    <string name="instructions">BombSeeker is a game where you try to reveal all bombs in the field with the least number of scans. To check for a bomb in an area, tap the area. If there is a bomb in the area, it is revealed. If there is not, a scan is executed and a count will be shown indicating the number of bombs in the row and column of the selected area. The goal is to reveal all bombs with least number of scans. Good luck!</string>
+    <string name="instructions_title">Instructions</string>
 </resources>

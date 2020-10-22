@@ -125,7 +125,6 @@ public class GameActivity extends AppCompatActivity {
                     // win
                     if(Options.getInstance()
                             .updateBestScore(board.getNumScansUsed())){ // if bestScore updated
-                        Log.i("scorewin", ""+board.getNumScansUsed());
                         Prefs.setBestScorePref(this);
                     }
                     Toast.makeText(this, "Congrats you win!", Toast.LENGTH_SHORT).show();
